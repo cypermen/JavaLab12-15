@@ -6,14 +6,30 @@ import java.util.regex.*;
 public class Main {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
-        //String[] str = ex1(s.nextLine());
-        //for (String i: str) {
-        //  System.out.println(i);
-        //}
-        //System.out.println(ex2("abcdefghijklmnopqrstuv18340"));
-        //System.out.println(ex2("abcdefghijklmnopqrstu340"));
-        //ex3(s.nextLine());
+        //Тест первого упражнения разделение строки по точкам
+        String[] str = ex1(s.nextLine());
+        for (String i: str) {
+          System.out.println(i);
+        }
+
+        //тест второго урпажнения определяющее является ли данная строка строкой "abcdefghijklmnopqrstuv18340" или нет
+        System.out.println(ex2("abcdefghijklmnopqrstuv18340"));
+        System.out.println(ex2("abcdefghijklmnopqrstu340"));
+        //тест третьего упражнения Дан текст со списками цен. Извлечь из него цены в USD, RUВ, EU
+        ex3(s.nextLine());
+        //тест четвёртого упражнения Дан текст, необходимо проверить есть ли в тексте цифры, за которыми стоит знак «+»
         System.out.println(ex4(s.nextLine()));
+        // тест пятого упражнения Написать регулярное выражение,
+        // определяющее является ли данная строчка датой в формате dd/mm/yyyy. Начиная с 1900 года до 9999 года.
+        System.out.println(ex5(s.nextLine()));
+        //тест шестого упражнения Написать регулярное выражение,
+        // определяющее является ли данная строчка допустимым (корректным) е-mail адресом согласно RFC под номером 2822.
+        System.out.println(ex6(s.nextLine()));
+        //тест седьмого упражнения Проверить, надежно ли составлен пароль.
+        // Пароль считается надежным, если он состоит из 8 или более символов.
+        // Где символом может быть цифр, английская буква, и знак подчеркивания.
+        // Пароль должен содержать хотя бы одну заглавную букву, одну маленькую букву и одну цифру.
+        System.out.println(ex7(s.nextLine()));
     }
 
     public static String[] ex1(String s){
@@ -30,6 +46,9 @@ public class Main {
         return result;
     }
 
+    public static boolean ex4(String s){
+        return Pattern.compile("[+]\\s*\\d+").matcher(s).find();
+    }
 
     public static void ex3(String s){
         Pattern p = Pattern.compile("\\d+[.]?\\d?\\d? (USD|RUB|EU)");
@@ -38,7 +57,7 @@ public class Main {
             System.out.println("Цены: " + m.group());
         }
     }
-    public static boolean ex4(String s){
+    public static boolean ex5(String s){
 
         Pattern p = Pattern.compile("([0-3]\\d)[/]([0-1]\\d)[/](\\d{4})");
         boolean b = p.matcher(s).matches();
@@ -84,14 +103,11 @@ public class Main {
         return false;
     }
 
-    public static boolean ex5(String s){
-        boolean result;
-        Pattern p = Pattern.compile("\\w+@\\w+[.]?\\w+");
-        result = p.matcher(s).matches();
-        return result;
+    public static boolean ex6(String s){
+        return Pattern.compile("\\w+@\\w+[.]?\\w+").matcher(s).matches();
     }
 
-    public static boolean ex6(String s){
+    public static boolean ex7(String s){
         boolean result;
         result = Pattern.matches("\\w{8,}", s) && Pattern.matches("\\w*[A-Z]?\\w*", s);
         result &= Pattern.matches("\\w*[0-9]+\\w*", s) && Pattern.matches("\\w*[a-z]+\\w*", s);
